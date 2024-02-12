@@ -8,12 +8,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @Configuration
-@EnableJpaRepositories("com.baeldung.repository")
-@EntityScan("com.baeldung.entity")
+@EnableJpaRepositories("com.glcondominio.repository")
+@EntityScan("com.glcondominio.entity")
 public class App {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        System.out.println( "App-data" );
         SpringApplication.run(App.class, args);
 
     }

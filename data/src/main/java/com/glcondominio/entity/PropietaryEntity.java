@@ -24,21 +24,21 @@ public class PropietaryEntity implements Serializable {
     @Column(name="ID")
     private Long id;
 
-    @Column(name="NAME", nullable=true)
+    @Column(name="NAME")
     private String name;
 
-    @Column(name="FIRTSNAME", nullable=true)
+    @Column(name="FIRTSNAME")
     private String firtsName;
 
-    @Column(name="LASTNAME", nullable=true)
+    @Column(name="LASTNAME")
     private String lastName;
 
-    @Column(name="BIRTHDAY", nullable=true)
+    @Column(name="BIRTHDAY")
     private Date birthday;
 
-    @Column(name="ALIQUOT", nullable=false)
+    @Column(name="ALIQUOT")
     private BigDecimal aliquot;
 
-    @Column(name="APARTAMENTS", nullable=false)
+    @Column(name="APARTAMENTS")
     private List<Long> apartaments; 
 }
