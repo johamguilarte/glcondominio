@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.glcondominio.model.TownPlanning;
@@ -18,8 +19,7 @@ import com.glcondominio.service.TownPlanningService;
 
 @RestController
 @RequestMapping(
-    value = "/town-planning", 
-    consumes = "application/json")
+    value = "/town-planning")
 public class TownPlanningController {
     
     @Autowired
@@ -36,11 +36,13 @@ public class TownPlanningController {
     }
 
     @GetMapping("/get-all")
+    @ResponseBody
     public ResponseEntity<List<TownPlanning>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
     @GetMapping("/get-by-id/{id}")
+    @ResponseBody
     public ResponseEntity<TownPlanning> getById(@PathVariable @NonNull Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
