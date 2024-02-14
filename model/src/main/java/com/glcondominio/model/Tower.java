@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter()
 @Setter()
-public class Tower extends Creation {
+public class Tower {
     
     private Long id;
     private String name;

@@ -2,6 +2,8 @@ package com.glcondominio.entity;
 
 import java.io.Serializable;
 
+import com.glcondominio.model.Creation;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +12,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="APARTMENT")
-public class ApartmentEntity implements Serializable {
+public class ApartmentEntity extends Creation implements Serializable {
     private static final long serialVersionUID = -1123914430092011471L;
 
     @Id

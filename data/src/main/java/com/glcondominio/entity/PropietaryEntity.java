@@ -5,18 +5,22 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.glcondominio.model.Creation;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="PROPIETARY")
-public class PropietaryEntity implements Serializable {
+public class PropietaryEntity extends Creation implements Serializable {
     private static final long serialVersionUID = -6763927892928560383L;
 
     @Id

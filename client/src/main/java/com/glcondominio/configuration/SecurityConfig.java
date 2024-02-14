@@ -42,9 +42,10 @@ class SecurityConfig {
 
     @Bean
     public SecurityFilterChain resourceServerFilterChain(HttpSecurity http) throws Exception {
+        
         http.authorizeHttpRequests(auth -> auth
-            .requestMatchers(new AntPathRequestMatcher("/town-planning*"))
-            .hasRole("user")
+            .requestMatchers(new AntPathRequestMatcher("/*"))
+            .hasRole("admin")
             .requestMatchers(new AntPathRequestMatcher("/"))
             .permitAll()
             .anyRequest()

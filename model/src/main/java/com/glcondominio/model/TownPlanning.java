@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter()
 @Setter()
-public class TownPlanning extends Creation {
+public class TownPlanning {
     private Long id;
     private String name;
     private List<Long> permission;

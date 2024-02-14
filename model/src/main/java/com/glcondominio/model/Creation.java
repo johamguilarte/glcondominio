@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter()
 public class Creation {
     
-    private Long createdBy;
+    private String createdBy;
     private Date createdAt;
-    private Long updatedBy;
+    private String updatedBy;
     private Date updatedAt;
 }

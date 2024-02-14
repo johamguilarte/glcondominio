@@ -3,18 +3,22 @@ package com.glcondominio.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import com.glcondominio.model.Creation;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="TOWN_PLANNING")
-public class TownPlanningEntity implements Serializable {
+public class TownPlanningEntity extends Creation implements Serializable {
     private static final long serialVersionUID = -4991133276610620956L;
 
     @Id

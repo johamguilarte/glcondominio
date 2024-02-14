@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter()
 @Setter()
-public class Propietary extends Creation {
+public class Propietary {
     private Long id;
     private String firtsName;
     private String lastName;

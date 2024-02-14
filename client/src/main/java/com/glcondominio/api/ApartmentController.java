@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.glcondominio.model.Apartment;
@@ -26,28 +29,38 @@ public class ApartmentController {
     ApartmentService service;
     
     @PostMapping("/create")
-    public ResponseEntity<Apartment> create(@RequestBody @NonNull Apartment model) {
-        return ResponseEntity.ok(service.create(model));
+    public ResponseEntity<Apartment> create(
+        @AuthenticationPrincipal Jwt jwt,
+        @RequestBody @NonNull Apartment model) {
+        return ResponseEntity.ok(service.create(jwt, model));
     }
 
     @PostMapping("/update")
-    public ResponseEntity<Apartment> update(@RequestBody @NonNull Apartment model) {
-        return ResponseEntity.ok(service.update(model));
+    public ResponseEntity<Apartment> update(
+        @AuthenticationPrincipal Jwt jwt,
+        @RequestBody @NonNull Apartment model) {
+        return ResponseEntity.ok(service.update(jwt, model));
     }
 
     @GetMapping("/get-all")
+    @ResponseBody
     public ResponseEntity<List<Apartment>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
     @GetMapping("/get-by-id/{id}")
-    public ResponseEntity<Apartment> getById(@PathVariable @NonNull Long id) {
+    @ResponseBody
+    public ResponseEntity<Apartment> getById(
+        @PathVariable @NonNull Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable @NonNull Long id) {
-        return ResponseEntity.ok(service.delete(id));
+    public ResponseEntity<Boolean> delete(
+        @AuthenticationPrincipal Jwt jwt,
+        @PathVariable @NonNull Long id) {
+        return ResponseEntity.ok(service.delete(jwt, id));
     }
     
+
 }

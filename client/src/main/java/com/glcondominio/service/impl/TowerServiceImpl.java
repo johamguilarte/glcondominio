@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import com.glcondominio.entity.TowerEntity;
@@ -25,21 +26,22 @@ public class TowerServiceImpl implements TowerService {
     @Autowired
     TowerTransformer transformer;
 
-    @SuppressWarnings("null")
+   @SuppressWarnings("null")
     @Override
-    public Tower create(@NonNull Tower model) {
+    public Tower create(Jwt jwt, @NonNull Tower model) {
         logger.info("TowerServiceImpl.create {}", model);
+
         return transformer.toModel(
-            this.repository.create(
+            this.repository.create(jwt,
                     this.transformer.toEntity(model)));
     }
 
     @SuppressWarnings("null")
     @Override
-    public Tower update(@NonNull Tower model) {
+    public Tower update(Jwt jwt, @NonNull Tower model) {
         logger.info("TowerServiceImpl.update {}", model);
         return transformer.toModel(
-            this.repository.create(
+            this.repository.update(jwt,
                     this.transformer.toEntity(model)));
     }
 
@@ -58,9 +60,9 @@ public class TowerServiceImpl implements TowerService {
     }
 
     @Override
-    public Boolean delete(@NonNull Long id) {
+    public Boolean delete(Jwt jwt, @NonNull Long id) {
         logger.info("TowerServiceImpl.delete %d", id);
-        return this.repository.delete(id);
+        return this.repository.delete(jwt, id);
     }
     
 }

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter()
 @Setter()
-public class Apartment extends Creation {
+public class Apartment {
 
     private Long id;
     private String name; //housingName

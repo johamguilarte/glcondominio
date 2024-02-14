@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import com.glcondominio.entity.TownPlanningEntity;
@@ -27,19 +28,20 @@ public class TownPlanningServiceImpl implements TownPlanningService {
 
     @SuppressWarnings("null")
     @Override
-    public TownPlanning create(@NonNull TownPlanning model) {
+    public TownPlanning create(Jwt jwt, @NonNull TownPlanning model) {
         logger.info("TownPlanningServiceImpl.create {}", model);
+
         return transformer.toModel(
-            this.repository.create(
+            this.repository.create(jwt,
                     this.transformer.toEntity(model)));
     }
 
     @SuppressWarnings("null")
     @Override
-    public TownPlanning update(@NonNull TownPlanning model) {
+    public TownPlanning update(Jwt jwt, @NonNull TownPlanning model) {
         logger.info("TownPlanningServiceImpl.update {}", model);
         return transformer.toModel(
-            this.repository.create(
+            this.repository.update(jwt,
                     this.transformer.toEntity(model)));
     }
 
@@ -58,9 +60,9 @@ public class TownPlanningServiceImpl implements TownPlanningService {
     }
 
     @Override
-    public Boolean delete(@NonNull Long id) {
+    public Boolean delete(Jwt jwt, @NonNull Long id) {
         logger.info("TownPlanningServiceImpl.delete %d", id);
-        return this.repository.delete(id);
+        return this.repository.delete(jwt, id);
     }
     
 }

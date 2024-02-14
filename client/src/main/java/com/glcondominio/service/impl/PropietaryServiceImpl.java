@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import com.glcondominio.entity.PropietaryEntity;
@@ -27,28 +28,29 @@ public class PropietaryServiceImpl implements PropietaryService {
 
     @SuppressWarnings("null")
     @Override
-    public Propietary create(@NonNull Propietary model) {
+    public Propietary create(Jwt jwt, @NonNull Propietary model) {
         logger.info("PropietaryServiceImpl.create {}", model);
+
         return transformer.toModel(
-            this.repository.create(
-                    this.transformer.toEntity(model)));
+                this.repository.create(jwt,
+                        this.transformer.toEntity(model)));
     }
 
     @SuppressWarnings("null")
     @Override
-    public Propietary update(@NonNull Propietary model) {
+    public Propietary update(Jwt jwt, @NonNull Propietary model) {
         logger.info("PropietaryServiceImpl.update {}", model);
         return transformer.toModel(
-            this.repository.create(
-                    this.transformer.toEntity(model)));
+                this.repository.update(jwt,
+                        this.transformer.toEntity(model)));
     }
 
     @Override
     public List<Propietary> getAll() {
         logger.info("PropietaryServiceImpl.getAll");
-       List<PropietaryEntity> result = new ArrayList<PropietaryEntity>();
-       this.repository.getAll().forEach(result::add);
-       return this.transformer.toModelList(result); 
+        List<PropietaryEntity> result = new ArrayList<PropietaryEntity>();
+        this.repository.getAll().forEach(result::add);
+        return this.transformer.toModelList(result);
     }
 
     @Override
@@ -58,9 +60,9 @@ public class PropietaryServiceImpl implements PropietaryService {
     }
 
     @Override
-    public Boolean delete(@NonNull Long id) {
+    public Boolean delete(Jwt jwt, @NonNull Long id) {
         logger.info("PropietaryServiceImpl.delete %d", id);
-        return this.repository.delete(id);
+        return this.repository.delete(jwt, id);
     }
-    
+
 }

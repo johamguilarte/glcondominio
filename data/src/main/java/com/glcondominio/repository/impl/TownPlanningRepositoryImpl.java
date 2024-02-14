@@ -4,9 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Repository;
 
+import com.glcondominio.auditory.CreationByToken;
 import com.glcondominio.entity.TownPlanningEntity;
+import com.glcondominio.model.Creation;
 import com.glcondominio.repository.TownPlanningRepository;
 import com.glcondominio.repository.dao.TownPlanningRepositoryDao;
 
@@ -18,16 +21,31 @@ public class TownPlanningRepositoryImpl implements TownPlanningRepository {
     @Autowired
     TownPlanningRepositoryDao crudRepository;
 
+    @Autowired
+    CreationByToken creationByToken;
+
     @Override
-    public TownPlanningEntity create(@NonNull TownPlanningEntity entity) {
+    public TownPlanningEntity create(Jwt jwt, @NonNull TownPlanningEntity entity) {
         logger.info("TownPlanningRepositoryImpl.create {}", entity);
         entity.setId(null);
+
+        Creation model = creationByToken.buildCreationByJwt(jwt);
+        entity.setCreatedAt(model.getCreatedAt());
+        entity.setCreatedBy(model.getCreatedBy());
+        entity.setUpdatedAt(model.getUpdatedAt());
+        entity.setUpdatedBy(model.getUpdatedBy());
+
         return this.crudRepository.save(entity);
     }
 
     @Override
-    public TownPlanningEntity update(@NonNull TownPlanningEntity entity) {
+    public TownPlanningEntity update(Jwt jwt, @NonNull TownPlanningEntity entity) {
         logger.info("TownPlanningRepositoryImpl.update {}", entity);
+
+        Creation model = creationByToken.buildCreationByJwt(jwt);
+        entity.setUpdatedAt(model.getUpdatedAt());
+        entity.setUpdatedBy(model.getUpdatedBy());
+
         return this.crudRepository.save(entity);
     }
 
@@ -44,7 +62,7 @@ public class TownPlanningRepositoryImpl implements TownPlanningRepository {
     }
 
     @Override
-    public Boolean delete(@NonNull Long id) {
+    public Boolean delete(Jwt jwt, @NonNull Long id) {
         try {
             logger.info("TownPlanningRepositoryImpl.getById %d", id);
             if(this.crudRepository.existsById(id)){
